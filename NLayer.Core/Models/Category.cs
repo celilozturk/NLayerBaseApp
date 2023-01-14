@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NLayer.Core.Entities
+namespace NLayer.Core.Models
 {
-    public class Category:BaseEntity
+    public class Category : BaseEntity
     {
         public string Name { get; set; }
         public ICollection<Product> Products { get; set; } //List yerine ICollection tutmak daha mantikli... Navigation Property
