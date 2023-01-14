@@ -7,26 +7,32 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    [Route("api/[controller]")]
-    //[Route("api/[controller]/[action]")]  // => Action'da olur ise, metoda istek yaparken metod_adini da yazmak gerekir.
-    [ApiController]
+    
     public class ProductsController : CustomBaseController
     {
         //Generic Respositorylerde Mapping Controller tarafinda olur. Ancak CustomRepositorylerde Service katmaninda gerceklestirilir.
-        private readonly IMapper _mapper;
-        private readonly IService<Product> _service;
+        private readonly IMapper _mapper;        
+        private readonly IProductService _service;
 
-        public ProductsController(IMapper mapper, IService<Product> service)
+        public ProductsController(IMapper mapper, IProductService productService)
         {
-            _mapper = mapper;
-            _service = service;
+            _mapper = mapper;          
+            _service = productService;
         }
+        // Get api/products/GetProductsWithCategory
+        //[HttpGet("GetProductsWithCategory")]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductsWithCategory()
+        {
+            return CreateActionResult(await _service.GetProductsWithCategory());
+        }
+
         //Get api/products
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var products = await _service.GetAllAsync();
-            var productsDto = _mapper.Map<List<ProductDto>>(products.ToList());
+            var products = await _service.GetAllAsync(); //Generic yapilarda mapping Controller seviyesinde mecburen yapilir.
+            var productsDto = _mapper.Map<List<ProductDto>>(products.ToList());  //
             //  return Ok(CustomResponseDto<List<ProductDto>>.Success(200,productsDto));
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productsDto));
         }

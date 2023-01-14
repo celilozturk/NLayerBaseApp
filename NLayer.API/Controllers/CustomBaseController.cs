@@ -4,7 +4,10 @@ using NLayer.Core.DTOs;
 
 namespace NLayer.API.Controllers
 {
-     public class CustomBaseController : ControllerBase
+    //[Route("api/[controller]/[action]")]  // => Action'da olur ise, metoda istek yaparken metod_adini da yazmak gerekir.
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CustomBaseController : ControllerBase
     {
         [NonAction] //Bu controllerin metodunun bir endpoint olmadigini belirtmek icin NoAction attribute kullanilir. Swaggerda gorunmez.
         public IActionResult CreateActionResult<T>(CustomResponseDto<T> response)
