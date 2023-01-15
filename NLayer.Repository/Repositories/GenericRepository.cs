@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Repository.Repositories
 {
@@ -47,7 +42,7 @@ namespace NLayer.Repository.Repositories
 
         public void Remove(T entity)
         {
-         //  _context.Entry(entity).State = EntityState.Deleted;
+            //  _context.Entry(entity).State = EntityState.Deleted;
             _dbSet.Remove(entity);
         }
 
